@@ -7,7 +7,7 @@ ensure-build:
 
 package-rpm: ensure-build
 	rm -f build/fck-nat-$(VERSION)-any.rpm
-	fpm -t rpm --version $(VERSION) -p build/fck-nat-$(VERSION)-any.rpm
+	fpm --rpm-os linux -t rpm --version $(VERSION) -p build/fck-nat-$(VERSION)-any.rpm
 
 al2-ami-arm64: package-rpm
 	packer build -var 'version=$(VERSION)' -var-file="packer/fck-nat-arm64.pkrvars.hcl" -var-file="packer/fck-nat-al2.pkrvars.hcl" $(regions_file) packer/fck-nat.pkr.hcl
